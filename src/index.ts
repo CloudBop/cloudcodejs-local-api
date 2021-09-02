@@ -1,6 +1,7 @@
 import express from "express";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import { createCellsRouter } from "./routes/cells";
+import path from path;
 export const serve = (
   port: number,
   filename: string,
@@ -35,9 +36,11 @@ export const serve = (
     );
     app.use(
       express.static(
-        // express doesn't like symbolic link
-        // "../node_modules/local-client/build"
-        packagePath
+        path.dirname(
+          // express doesn't like symbolic link
+          // "../node_modules/local-client/build"
+          packagePath
+        )
       )
     );
   }
